@@ -1,0 +1,6 @@
+---
+import Icon from './Icon.astro';
+interface Props { href?: string; small?: boolean; light?: boolean }
+const { href = '#descubre', small = false, light = false } = Astro.props;
+---
+<a href={href} class:list={['button', { 'button--small': small, 'button--light': light }]}><slot /><Icon name="diagonal" size={small ? 17 : 20} /></a>

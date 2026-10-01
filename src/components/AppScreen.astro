@@ -1,0 +1,44 @@
+---
+import Icon from './Icon.astro';
+import ProductArt from './ProductArt.astro';
+import { products, euro } from '../data/demo';
+interface Props { view: 'list' | 'compare' | 'expenses'; interactive?: boolean }
+const { view, interactive = false } = Astro.props;
+const total = products.reduce((sum, item) => sum + item.price, 0);
+---
+<div class:list={['app-screen', `app-screen--${view}`]}>
+  <div class="app-topbar"><span class="app-wordmark">miCesta<span>.</span></span><span class="app-profile">A</span></div>
+  {view === 'list' && <>
+    <div class="app-heading"><span class="app-eyebrow">LO BUENO EMPIEZA AQUÍ</span><h3>La compra<br/>de la semana<span>.</span></h3></div>
+    <div class="list-meta"><span class="shop-tag"><img src="/images/mercadona.svg" width="20" height="20" alt=""/>Mercadona</span><span class="avatars" aria-label="Compartida por dos personas"><span>A</span><span>M</span><Icon name="people" size={13}/></span></div>
+    <div class="list-progress"><span>Tu lista</span><span class="list-count" data-list-count>1 de 5</span></div>
+    <div class="product-list">
+      {products.map((item) => <label class:list={['product-row', { 'is-checked': item.checked }]}>
+        <span class:list={['product-art', `product-art--${item.kind}`]}><ProductArt kind={item.kind}/></span>
+        <span class="product-copy"><span class="product-name">{item.name}</span><span class="product-detail">{item.detail}</span></span>
+        <span class="product-price">{euro(item.price)}</span>
+        {interactive ? <input type="checkbox" checked={item.checked} aria-label={`Marcar ${item.name} como comprado`} data-product-check/> : <span class="fake-checkbox"/>}
+      </label>)}
+    </div>
+    <div class="list-total"><span>Total estimado</span><strong>{euro(total)}</strong></div>
+    <span class="sync-label"><Icon name="check" size={12}/> Lista compartida · al día</span>
+  </>}
+  {view === 'compare' && <>
+    <div class="app-heading"><span class="app-eyebrow">ELIGE CON CALMA</span><h3>Tu lista.<br/>Otros súper<span>.</span></h3></div>
+    <div class="comparison-highlight"><span class="app-eyebrow">MEJOR OPCIÓN EN ESTA DEMO</span><div><img src="/images/lidl.svg" width="35" height="35" alt="Lidl"/><strong>9,42 <small>€</small></strong></div><span>5 de 5 productos similares</span></div>
+    <div class="app-section-title">También en tu cesta</div>
+    <div class="comparison-row"><span class="compare-logo"><img src="/images/mercadona.svg" width="32" height="32" alt=""/></span><span>Mercadona<small>5 de 5 productos</small></span><strong>10,14 €</strong></div>
+    <div class="comparison-row"><span class="compare-logo"><img src="/images/carrefour.svg" width="32" height="32" alt=""/></span><span>Carrefour<small>5 de 5 productos</small></span><strong>10,68 €</strong></div>
+    <div class="comparison-row"><span class="compare-logo"><img src="/images/dia.svg" width="32" height="32" alt=""/></span><span>DIA<small>5 de 5 productos</small></span><strong>11,05 €</strong></div>
+    <div class="comparison-note"><Icon name="compare" size={18}/><span>Productos similares.<br/>Cantidades equivalentes.</span></div>
+  </>}
+  {view === 'expenses' && <>
+    <div class="app-heading"><span class="app-eyebrow">TODO EN SU SITIO</span><h3>Tus gastos.<br/>Así de claros<span>.</span></h3></div>
+    <div class="expense-summary"><span>Este mes <span class="month-chip">Septiembre</span></span><strong>186<small>,40 €</small></strong><span class="expense-detail">6 tickets guardados</span></div>
+    <div class="chart" role="img" aria-label="Gasto por semana: 42,10 €, 56,20 €, 38,70 € y 49,40 €."><div style="--bar: 66%"><i/><span>S1</span></div><div style="--bar: 88%"><i/><span>S2</span></div><div style="--bar: 61%"><i/><span>S3</span></div><div style="--bar: 77%"><i/><span>S4</span></div></div>
+    <div class="app-section-title">Últimos tickets</div>
+    <div class="ticket-row"><span class="ticket-icon"><Icon name="receipt" size={20}/></span><span>Mercadona<small>28 septiembre</small></span><strong>32,65 €</strong></div>
+    <div class="ticket-row"><span class="ticket-icon"><Icon name="receipt" size={20}/></span><span>Lidl<small>21 septiembre</small></span><strong>24,80 €</strong></div>
+  </>}
+  <div class="app-bottom-nav" aria-hidden="true"><span class:list={{ active: view === 'list' }}><Icon name="home" size={17}/>Inicio</span><span><Icon name="basket" size={17}/>Productos</span><span class:list={{ active: view === 'compare' }}><Icon name="list" size={17}/>Carrito</span><span class:list={{ active: view === 'expenses' }}><Icon name="compare" size={17}/>Gastos</span></div>
+</div>

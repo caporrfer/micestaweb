@@ -1,0 +1,11 @@
+---
+interface Props { kind: string }
+const { kind } = Astro.props;
+---
+<svg viewBox="0 0 64 64" width="44" height="44" fill="none" aria-hidden="true">
+  {kind === 'avocado' && <><path d="M29 5c-8 0-8 12-15 22C3 42 12 60 31 60S57 43 47 28C40 17 39 5 29 5Z" fill="#356E35"/><path d="M29 10c-5 0-6 12-12 20C8 43 16 56 31 56s22-14 13-26C37 19 36 10 29 10Z" fill="#BBD868"/><ellipse cx="30" cy="39" rx="12" ry="14" fill="#AC7544"/><ellipse cx="27" cy="35" rx="6" ry="8" fill="#CA9560"/></>}
+  {kind === 'milk' && <><path d="M18 14h24l5 11v32H17V25Z" fill="#F7F1DE"/><path d="M18 14h24V7H22Z" fill="#A9C8C1"/><path d="m42 14 5 11v32H36V25Z" fill="#C4D8D1"/><path d="M17 28h19v14H17Z" fill="#5D9482"/><path d="m18 14 18 11 6-11" fill="#DDE6D6"/><path d="M22 33h9m-9 4h6" stroke="#F7F1DE" stroke-width="2"/></>}
+  {kind === 'banana' && <><path d="M13 12C10 32 29 53 53 37 46 59 16 60 8 35 4 24 7 16 10 11Z" fill="#F0C953"/><path d="M17 10C14 29 34 44 54 31 48 51 23 49 14 32 8 23 11 14 14 9Z" fill="#F8DD77"/><path d="m12 11 2-5m39 29 4-4" stroke="#736042" stroke-width="4"/></>}
+  {kind === 'bread' && <><path d="M12 48C3 41 16 24 33 13s25-8 25 1-8 18-18 27S19 54 12 48Z" fill="#D39856"/><path d="M14 44C7 40 21 23 34 16s21-8 21-1-8 17-17 24-19 9-24 5Z" fill="#E8B978"/><path d="m25 25 7 9m3-17 7 9m2-15 7 7" stroke="#F8DDAD" stroke-width="4" stroke-linecap="round"/></>}
+  {kind === 'eggs' && <><path d="m5 33 8 20h39l8-20Z" fill="#B4A78A"/><path d="M8 30h50v10H8Z" fill="#D6CCB2"/><ellipse cx="20" cy="27" rx="9" ry="13" fill="#E8BC8F"/><ellipse cx="43" cy="27" rx="9" ry="13" fill="#F6DFC3"/><path d="m5 35 8 18h39l8-18-12 5-15-5-14 5Z" fill="#C4B99D"/><path d="m13 45 39 1" stroke="#A2967C" stroke-width="2"/></>}
+</svg>

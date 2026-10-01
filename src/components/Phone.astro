@@ -1,0 +1,8 @@
+---
+import Icon from './Icon.astro';
+interface Props { class?: string; decorative?: boolean }
+const { class: className, decorative = false } = Astro.props;
+---
+<div class:list={['phone', className]} aria-hidden={decorative ? 'true' : undefined}>
+  <div class="phone-screen"><div class="phone-status" aria-hidden="true"><span>9:41</span><span class="dynamic-island"></span><span class="status-icons"><span class="signal">▂▄▆</span><Icon name="wifi" size={13}/><span class="battery"></span></span></div><slot/><span class="home-indicator" aria-hidden="true"></span></div>
+</div>

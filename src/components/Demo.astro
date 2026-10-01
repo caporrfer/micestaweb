@@ -1,0 +1,65 @@
+---
+import Phone from './Phone.astro';
+import AppScreen from './AppScreen.astro';
+import Icon from './Icon.astro';
+const views = [
+  { id: 'list', label: 'Organiza', number: '01', icon: 'list', caption: 'Una lista. Todo el equipo.', tag: 'COMPARTIR ES VIVIR' },
+  { id: 'compare', label: 'Compara', number: '02', icon: 'compare', caption: 'Tu cesta, en otros súper.', tag: 'ELIGE DÓNDE COMPRAR' },
+  { id: 'expenses', label: 'Controla', number: '03', icon: 'receipt', caption: 'Cada ticket, en su sitio.', tag: 'TODO BAJO CONTROL' },
+] as const;
+---
+<section class="demo-section section-shell" id="descubre" aria-labelledby="demo-title">
+  <div class="section-topline"><span class="eyebrow"><span class="tiny-square"></span> ASÍ SE SIENTE MICESTA</span><span class="section-index" aria-hidden="true">01 — 03</span></div>
+  <div class="demo-layout" data-demo>
+    <div class="demo-controls"><h2 id="demo-title">Menos lío.<br/><span>Más vida.</span></h2>
+      <div class="demo-tabs" role="tablist" aria-label="Funciones de miCesta">
+        {views.map((view, index) => <button class="demo-tab" id={`tab-${view.id}`} role="tab" type="button" aria-selected={index === 0 ? 'true' : 'false'} aria-controls={`panel-${view.id}`} tabindex={index === 0 ? 0 : -1} data-view={view.id}><span class="tab-number">{view.number}</span><Icon name={view.icon} size={23}/><span>{view.label}</span><Icon name="diagonal" size={24} class="tab-arrow"/></button>)}
+      </div>
+      <div class="demo-caption"><span class="small-dot"></span><span>Demo ilustrativa</span><span class="demo-caption-line"></span><span>Hecha para tu día a día</span></div>
+    </div>
+    <div class="demo-stage">
+      <span class="demo-orbit demo-orbit--one" aria-hidden="true"></span><span class="demo-orbit demo-orbit--two" aria-hidden="true"></span>
+      {views.map((view, index) => <div class="demo-panel" id={`panel-${view.id}`} role="tabpanel" aria-labelledby={`tab-${view.id}`} hidden={index !== 0} tabindex="0" data-panel={view.id}>
+        <div class="demo-floating-tag"><Icon name={view.icon} size={18}/><span>{view.tag}</span></div>
+        <Phone><AppScreen view={view.id} interactive={view.id === 'list'}/></Phone>
+        <p class="demo-panel-caption">{view.caption}</p>
+      </div>)}
+      <span class="demo-sticker" aria-hidden="true"><Icon name="spark" size={25}/></span>
+    </div>
+    <p class="sr-only" role="status" data-demo-status></p>
+  </div>
+</section>
+<script>
+  const demo = document.querySelector<HTMLElement>('[data-demo]');
+  if (demo) {
+    const tabs = Array.from(demo.querySelectorAll<HTMLButtonElement>('[data-view]'));
+    const panels = Array.from(demo.querySelectorAll<HTMLElement>('[data-panel]'));
+    const activate = (tab: HTMLButtonElement) => {
+      tabs.forEach((item) => { const selected = item === tab; item.setAttribute('aria-selected', String(selected)); item.tabIndex = selected ? 0 : -1; });
+      panels.forEach((panel) => { panel.hidden = panel.dataset.panel !== tab.dataset.view; });
+    };
+    tabs.forEach((tab, index) => {
+      tab.addEventListener('click', () => activate(tab));
+      tab.addEventListener('keydown', (event) => {
+        let next = index;
+        if (event.key === 'ArrowDown' || event.key === 'ArrowRight') next = (index + 1) % tabs.length;
+        else if (event.key === 'ArrowUp' || event.key === 'ArrowLeft') next = (index - 1 + tabs.length) % tabs.length;
+        else if (event.key === 'Home') next = 0;
+        else if (event.key === 'End') next = tabs.length - 1;
+        else return;
+        event.preventDefault();
+        const target = tabs[next];
+        if (target) { activate(target); target.focus(); }
+      });
+    });
+    const checkboxes = Array.from(demo.querySelectorAll<HTMLInputElement>('[data-product-check]'));
+    checkboxes.forEach((input) => input.addEventListener('change', () => {
+      input.closest('.product-row')?.classList.toggle('is-checked', input.checked);
+      const count = checkboxes.filter((item) => item.checked).length;
+      const label = demo.querySelector('[data-list-count]');
+      if (label) label.textContent = `${count} de ${checkboxes.length}`;
+      const status = demo.querySelector('[data-demo-status]');
+      if (status) status.textContent = `${count} de ${checkboxes.length} productos comprados`;
+    }));
+  }
+</script>
