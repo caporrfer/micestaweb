@@ -41,9 +41,16 @@ Marca, ilustración de fondo y logos de supermercados procedentes de `caporrfer/
 - Las pantallas y las ilustraciones de productos se recrean con HTML, CSS y SVG; no contienen datos de usuarios.
 - Manrope se distribuye localmente mediante `@fontsource-variable/manrope`, bajo SIL Open Font License (incluida en el paquete).
 
-## Alojamiento futuro
+## Alojamiento
 
-Este repositorio no configura ni publica alojamiento. Al elegir un dominio, definir `SITE_URL=https://dominio-real.example` en el entorno de compilación para generar canonical y URL absoluta de la imagen social. Sin dominio configurado se omite canonical y la imagen usa una ruta local.
+GitHub Pages en `https://micesta.online` (DNS en Nominalia), publicado por `.github/workflows/deploy.yml` en cada push a
+`main` con `SITE_URL=https://micesta.online`.
+
+- `public/.well-known/apple-app-site-association`: hace que los enlaces `https://micesta.online/u/<token>` abran la app
+  (enlace universal, app `6682L7H62W.com.caporrfer.Mi-Compra`). No cambiarle el nombre ni redirigirlo.
+- `src/pages/404.astro`: lo que ve quien abre una invitación sin la app (GitHub Pages lo sirve para `/u/<token>`), con
+  botón a `micompra://unirse/<token>` y el código para pegarlo en la app. Cualquier otra ruta inexistente muestra
+  «Esta página no existe». Cuando haya beta pública, poner el enlace de TestFlight en `testFlightUrl`.
 
 ## Pruebas de interfaz
 

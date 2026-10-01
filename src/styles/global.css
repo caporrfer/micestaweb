@@ -29,6 +29,14 @@
 }
 
 @layer components {
+  .invite { min-height: calc(100vh - 108px); display: grid; place-items: center; padding-block: 48px; }
+  .invite-card { width: min(520px, 100%); display: flex; flex-direction: column; align-items: center; gap: 18px; text-align: center; padding: 44px 32px; border-radius: 24px; background: #213c28; border: 1px solid #a6e58221; }
+  .invite-card h1 { font-size: clamp(40px, 9vw, 60px); }
+  .invite-card p { color: var(--muted); font-size: 15px; line-height: 1.5; }
+  .invite-logo { width: 72px; height: 72px; border-radius: 18px; }
+  .invite-help { font-size: 13px !important; margin-top: 8px; }
+  .invite-help strong { color: var(--cream); }
+  .invite-code { font: 700 18px/1 ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .08em; color: var(--green); background: #0a100c80; padding: 12px 16px; border-radius: 12px; user-select: all; }
   .site-header { height: 108px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--line); position: relative; z-index: 2; }
   .brand { display: inline-flex; align-items: center; gap: 10px; font-size: 27px; font-weight: 800; letter-spacing: -1.2px; }
   .brand img { width: 37px; height: 37px; border-radius: 10px; }

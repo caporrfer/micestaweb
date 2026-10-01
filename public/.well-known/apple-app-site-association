@@ -1,0 +1,12 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["6682L7H62W.com.caporrfer.Mi-Compra"],
+        "components": [
+          { "/": "/u/*", "comment": "Enlaces de invitación a una lista" }
+        ]
+      }
+    ]
+  }
+}

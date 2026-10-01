@@ -1,5 +1,5 @@
 ---
-interface Props { small?: boolean }
-const { small = false } = Astro.props;
+interface Props { small?: boolean; href?: string }
+const { small = false, href = '#inicio' } = Astro.props;
 ---
-<a class:list={['brand', { 'brand--small': small }]} href="#inicio" aria-label="miCesta, volver al inicio"><img src="/images/brand-logo.webp" width="44" height="44" alt="" /><span>miCesta<span class="brand-dot">.</span></span></a>
+<a class:list={['brand', { 'brand--small': small }]} href={href} aria-label="miCesta, volver al inicio"><img src="/images/brand-logo.webp" width="44" height="44" alt="" /><span>miCesta<span class="brand-dot">.</span></span></a>
